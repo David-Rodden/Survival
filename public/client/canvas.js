@@ -8,5 +8,9 @@ $(document).ready(function () {
 $(document).bind('keydown', function (event) {
     "use strict";
     man.handleMovement(event);
+    man.bitmap.rotation += 45;
+    stage.update();
+});
+$('#cnv').bind('mousemove', function (event) {
     stage.update();
 });
