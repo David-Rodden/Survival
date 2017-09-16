@@ -1,7 +1,7 @@
 const Entity = class {
     constructor(src, x, y) {
         let image = new Image();
-        image.src = src;
+        image.src = '/img/' + src;
         this.bitmap = new createjs.Bitmap(image);
         this.bitmap.x = x;
         this.bitmap.y = y;
