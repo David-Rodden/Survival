@@ -10,6 +10,16 @@ var users = require('./routes/users');
 
 var app = express();
 
+const jsdom = require("jsdom");
+const dom = new jsdom.JSDOM(`<!DOCTYPE html>`);
+var $ = require("jquery")(dom.window);
+
+
+$.getJSON('https://api.github.com/users/nhambayi', function (data) {
+    console.log(data);
+});
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -27,7 +37,7 @@ app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-    var err = new Error('Not Found');
+    const err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
@@ -44,3 +54,8 @@ app.use(function (err, req, res, next) {
 });
 
 module.exports = app;
+let count = 0;
+const interval = setInterval(function () {
+    console.log(++count + 'second has passed');
+    if (count > 5) clearInterval(interval);
+}, 1000);
