@@ -8,9 +8,10 @@ $(document).ready(function () {
 $(document).bind('keydown', function (event) {
     "use strict";
     man.handleMovement(event);
-    man.bitmap.rotation += 45;
     stage.update();
 });
 $('#cnv').bind('mousemove', function (event) {
+    let angle = Math.atan2(event.offsetY - man.bitmap.y, event.offsetX - man.bitmap.x) * 180 / Math.PI;
+    man.bitmap.rotation = angle;
     stage.update();
 });

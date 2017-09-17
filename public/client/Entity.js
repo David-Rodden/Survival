@@ -5,9 +5,8 @@ const Entity = class {
         this.bitmap = new createjs.Bitmap(image);
         this.bitmap.x = x;
         this.bitmap.y = y;
-        // temp regX & regY for rotation around center of default image
-        this.bitmap.regX = 20;
-        this.bitmap.regY = 20;
+        this.bitmap.regX = image.width / 2;
+        this.bitmap.regY = image.height / 2;
     };
 
     get image() {
