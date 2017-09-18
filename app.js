@@ -14,10 +14,7 @@ const jsdom = require("jsdom");
 const dom = new jsdom.JSDOM(`<!DOCTYPE html>`);
 var $ = require("jquery")(dom.window);
 
-
-$.getJSON('https://api.github.com/users/nhambayi', function (data) {
-    console.log(data);
-});
+console.log('this is server-side');
 
 
 // view engine setup
@@ -54,8 +51,8 @@ app.use(function (err, req, res, next) {
 });
 
 module.exports = app;
-let count = 0;
-const interval = setInterval(function () {
-    console.log(++count + 'second has passed');
-    if (count > 5) clearInterval(interval);
-}, 1000);
+const map = require('./map.json');
+const rocks = map.objects.rocks;
+rocks.forEach(function (item) {
+    console.log(item.x + ', ' + item.y);
+});

@@ -8,6 +8,7 @@ stage.addChild(man.image);
 $(document).ready(function () {
     stage.update();
 });
+// while (man.isCenterOff()) man.initializeCenter();
 $(document).bind('keydown', function (event) {
     "use strict";
     man.handleKeyPress(event);
