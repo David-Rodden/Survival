@@ -13,8 +13,19 @@ $(document).bind('keydown', function (event) {
     "use strict";
     man.handleKeyPress(event);
     stage.update();
+
 });
 $('#cnv').bind('mousemove', function (event) {
     man.handleDirection(event);
     stage.update();
+});
+const socket = io();
+socket.emit('connection', {"ok": 3});
+
+socket.on('initmap', function (data) {
+    data.forEach(function (item) {
+        const rock = new Entity('rock.png', item.x, item.y);
+        rock._bitmap.rotation = Math.random() * 360;
+        stage.addChild(rock.image);
+    });
 });

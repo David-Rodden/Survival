@@ -9,13 +9,17 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
-
+var http = require('http');
+const server = http.createServer(app);
 const jsdom = require("jsdom");
 const dom = new jsdom.JSDOM(`<!DOCTYPE html>`);
 var $ = require("jquery")(dom.window);
 
+let port = normalizePort(process.env.PORT || '4000');
 console.log('this is server-side');
 
+const io = require('socket.io').listen(server);
+server.listen(port);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -56,3 +60,48 @@ const rocks = map.objects.rocks;
 rocks.forEach(function (item) {
     console.log(item.x + ', ' + item.y);
 });
+
+io.on('connection', function (socket) {
+    "use strict";
+    socket.emit('initmap', rocks);
+});
+
+function normalizePort(val) {
+    const port = parseInt(val, 10);
+
+    if (isNaN(port)) {
+        // named pipe
+        return val;
+    }
+
+    if (port >= 0) {
+        // port number
+        return port;
+    }
+
+    return false;
+}
+
+function onError(error) {
+    if (error.syscall !== 'listen') {
+        throw error;
+    }
+
+    const bind = typeof port === 'string'
+        ? 'Pipe ' + port
+        : 'Port ' + port;
+
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
+        case 'EACCES':
+            console.error(bind + ' requires elevated privileges');
+            process.exit(1);
+            break;
+        case 'EADDRINUSE':
+            console.error(bind + ' is already in use');
+            process.exit(1);
+            break;
+        default:
+            throw error;
+    }
+}

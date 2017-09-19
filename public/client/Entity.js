@@ -21,17 +21,17 @@ const Entity = class {
 
     isCenterOff() {
         return this._bitmap.regX === 0;
-    }
+    };
 
     initializeCenter() {
         this._bitmap.regX = this._bitmap.image.width / 2;
         this._bitmap.regY = this._bitmap.image.height / 2;
-    }
+    };
 
     handleDirection(event) {
         let bitmapX = this._bitmap.x, bitmapY = this._bitmap.y;
         this._bitmap.rotation = Math.atan2(event.offsetY - bitmapY, event.offsetX - bitmapX) * 180 / Math.PI + 90;
-    }
+    };
 
     handleKeyPress(event) {
         if (event.keyCode === 38 || (event.keyCode === 40 && this._dy > 0)) this._dy -= 5;
