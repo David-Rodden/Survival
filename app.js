@@ -56,14 +56,9 @@ app.use(function (err, req, res, next) {
 
 module.exports = app;
 const map = require('./map.json');
-const rocks = map.objects.rocks;
-rocks.forEach(function (item) {
-    console.log(item.x + ', ' + item.y);
-});
-
 io.on('connection', function (socket) {
     "use strict";
-    socket.emit('initmap', rocks);
+    socket.emit('initmap', map.objects);
 });
 
 function normalizePort(val) {

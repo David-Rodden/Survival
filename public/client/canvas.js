@@ -23,9 +23,14 @@ const socket = io();
 socket.emit('connection', {"ok": 3});
 
 socket.on('initmap', function (data) {
-    data.forEach(function (item) {
+    data.rocks.forEach(function (item) {
         const rock = new Entity('rock.png', item.x, item.y);
         rock._bitmap.rotation = Math.random() * 360;
         stage.addChild(rock.image);
+    });
+    data.trees.forEach(function (item) {
+        const tree = new Entity('tree.png', item.x, item.y);
+        tree._bitmap.rotation = Math.random() * 360;
+        stage.addChild(tree.image);
     });
 });
