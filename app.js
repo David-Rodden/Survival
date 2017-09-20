@@ -58,8 +58,25 @@ module.exports = app;
 const map = require('./map.json');
 io.on('connection', function (socket) {
     "use strict";
+    socket.emit('connectionSuccess', {});
     socket.emit('initmap', map.objects);
+
+    socket.on('movement', function (event) {
+        console.log('character has moved');
+    });
 });
+const Players = require('./Players.js');
+const Player = require('./Player.js');
+const players = new Players();
+const p = new Player(map.bounds);
+
+/*
+Dealing with players connecting/disconnecting test
+ */
+players.addPlayer(p);
+console.log(players._players);
+players.removePlayer(p);
+console.log(players._players);
 
 function normalizePort(val) {
     const port = parseInt(val, 10);

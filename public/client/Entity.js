@@ -40,13 +40,7 @@ const Entity = class {
         if (event.keyCode === 39 || (event.keyCode === 37 && this._dx < 0)) this._dx += 5;
     };
 
-    handleMovement(event) {
-        this._bitmap.x += this._dx;
-        this._bitmap.y += this._dy;
-        if (!(event.keyCode === 37 || event.keyCode === 39))
-            this._dx += this._dx < 0 ? 1 : this._dx > 0 ? -1 : 0;
-        if (!(event.keyCode === 38 || event.keyCode === 40)) {
-            this._dy += this._dy < 0 ? 1 : this._dy > 0 ? -1 : 0;
-        }
+    handleMovement(socket, event) {
+        socket.emit('movement', {});
     };
 };

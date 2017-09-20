@@ -1,9 +1,11 @@
-var Player = function (id) {
-    var self = {
-        id: id,
-        x: 0,
-        y: 0,
-        score: 0
+const Player = class {
+    constructor(bounds) {
+        this.x = Math.random() * bounds.x;
+        this.y = Math.random() * bounds.y;
     };
+
+    distanceFrom(object) {
+        return Math.sqrt((Math.pow(object.x - this.x, 2)) + (Math.pow(object.y - this.y, 2)));
+    }
 };
-var app = require('express')();
+module.exports = Player;

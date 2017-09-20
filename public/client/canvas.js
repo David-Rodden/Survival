@@ -1,12 +1,18 @@
 'use strict';
 const stage = new createjs.Stage('cnv');
 const man = new Entity('green_player.png', 100, 40);
+
+const socket = io();
 createjs.Ticker.on('tick', function (event) {
-    man.handleMovement(event);
+    man.handleMovement(socket, event);
 });
 stage.addChild(man.image);
 $(document).ready(function () {
     stage.update();
+});
+socket.on('connectionSuccess', function (event) {
+    console.log('connection successful');
+    socket.emit('movement', {"test": "data"});
 });
 // while (man.isCenterOff()) man.initializeCenter();
 $(document).bind('keydown', function (event) {
@@ -19,8 +25,6 @@ $('#cnv').bind('mousemove', function (event) {
     man.handleDirection(event);
     stage.update();
 });
-const socket = io();
-socket.emit('connection', {"ok": 3});
 
 socket.on('initmap', function (data) {
     data.rocks.forEach(function (item) {
