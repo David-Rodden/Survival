@@ -56,27 +56,22 @@ app.use(function (err, req, res, next) {
 
 module.exports = app;
 const map = require('./map.json');
+const Players = require('./Players.js');
+const Player = require('./Player.js');
+const players = new Players(map.bounds);
 io.on('connection', function (socket) {
     "use strict";
     socket.emit('connectionSuccess', {});
     socket.emit('initmap', map.objects);
-
-    socket.on('movement', function (event) {
-        console.log('character has moved');
+    socket.on('configureId', function (data) {
+        players.addPlayer(data.id);
+        console.log('configured player with id ' + data.id);
     });
-});
-const Players = require('./Players.js');
-const Player = require('./Player.js');
-const players = new Players();
-const p = new Player(map.bounds);
+    console.log(socket);
+    socket.on('disconnect', function () {
 
-/*
-Dealing with players connecting/disconnecting test
- */
-players.addPlayer(p);
-console.log(players._players);
-players.removePlayer(p);
-console.log(players._players);
+    })
+});
 
 function normalizePort(val) {
     const port = parseInt(val, 10);

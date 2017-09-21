@@ -1,5 +1,6 @@
 const Player = class {
-    constructor(bounds) {
+    constructor(id, bounds) {
+        this._id = id;
         this.x = Math.random() * bounds.x;
         this.y = Math.random() * bounds.y;
     };

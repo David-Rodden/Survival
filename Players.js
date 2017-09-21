@@ -1,10 +1,12 @@
 const Player = require('./Player.js');
 const Players = class {
-    constructor() {
+    constructor(bounds) {
+        this._bounds = bounds;
         this._players = [];
     };
 
-    addPlayer(player) {
+    addPlayer(id) {
+        const player = new Player(id, this._bounds);
         if (!this._players.includes(player))
             this._players.push(player);
     };

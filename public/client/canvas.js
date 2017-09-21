@@ -10,14 +10,14 @@ stage.addChild(man.image);
 $(document).ready(function () {
     stage.update();
 });
+let myId = 0;
 socket.on('connectionSuccess', function (event) {
-    console.log('connection successful');
-    socket.emit('movement', {"test": "data"});
+    socket.emit('configureId', {"id": myId = Math.round(Math.random() * 1000000)})
 });
 // while (man.isCenterOff()) man.initializeCenter();
 $(document).bind('keydown', function (event) {
     "use strict";
-    man.handleKeyPress(event);
+    man.handleKeyPress(socket, event);
     stage.update();
 
 });

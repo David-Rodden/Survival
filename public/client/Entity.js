@@ -33,14 +33,16 @@ const Entity = class {
         this._bitmap.rotation = Math.atan2(event.offsetY - bitmapY, event.offsetX - bitmapX) * 180 / Math.PI + 90;
     };
 
-    handleKeyPress(event) {
-        if (event.keyCode === 38 || (event.keyCode === 40 && this._dy > 0)) this._dy -= 5;
-        if (event.keyCode === 40 || (event.keyCode === 38 && this._dy < 0)) this._dy += 5;
-        if (event.keyCode === 37 || (event.keyCode === 39 && this._dx > 0)) this._dx -= 5;
-        if (event.keyCode === 39 || (event.keyCode === 37 && this._dx < 0)) this._dx += 5;
+    handleKeyPress(socket, event) {
+        let xdir = 0, ydir = 0;
+        if (event.keyCode === 38) ydir -= 5;
+        if (event.keyCode === 40) ydir += 5;
+        if (event.keyCode === 37) xdir -= 5;
+        if (event.keyCode === 39) xdir += 5;
+        socket.emit('movement', {"dx": xdir, "dy": ydir});
     };
 
     handleMovement(socket, event) {
-        socket.emit('movement', {});
+        // socket.emit('movement', event);
     };
 };
